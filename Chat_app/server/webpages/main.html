@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>ASInt Project</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  </head>
+
+  <body>
+    <h1>Projecto de ASInt</h1><hr/>
+
+    <button class="btn btn-dark" id="chatbtn">Chat Box</button><button class="btn btn-dark" id="userbtn">Users</button><button class="btn btn-dark" id="distbtn">Distance</button>
+    <br/>
+    <br/>
+    <div id="messageBox" class="row" style="display: none;">
+      <div id="sendBox" class="col-sm-6" >
+        <div class="form-group">
+          <label for="sendInput"><h2>Send Box</h2></label>
+          <br/>
+          Message:<br/><textarea  class="form-control" id="mymsg" name="MESSAGE" rows="4" style="width:100%" maxlength="140"></textarea><br/>
+          <button class="btn btn-primary" id="sendbtn">SEND</button>
+        </div>
+      </div>
+      <div id="receiveBox" class="col-sm-6" >
+        <h2>Receive Box</h2>
+        <div class="card">
+            <ul class="card-body" id="messages"></ul>
+        </div>
+      </div>
+    </div>
+    <div class="row" style="padding-left:1em">
+      <div class="col-sm-6" id="otherUsers" style="display: none; ">
+
+          <h2>Nearby Users</h2>
+          <ul id=users>
+
+          </ul>
+
+      </div>
+      <div class="col-sm-6"  id="distance" style="display: none">
+          <h2>Max Distance</h2>
+          <input id='mydist' type="number" name="Distance" size="10" maxlength="5" /><br/><br/>
+          <button class="btn btn-primary" id="setbtn">SET</button>
+      </div>
+    </div>
+    <div class="row" style="padding-left:1em; padding-top:2em ">
+        <button class="btn btn-primary" id="outbtn">Logout</button>
+    </div>
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    <script>
+      $(document).ready(function(){
+        var socket = io.connect('http://127.0.0.1:5001');
+
+        send_loc();
+
+        socket.on('message', function(msg) {
+          console.log("recebi qualquer coisa");
+          $("#messages").append('<p class="alert alert-info">'+msg+'</p>');
+          console.log('Received message');
+        });
+
+        socket.on('connect', function(){
+          var obj = {token: $.cookie('token')}
+          socket.emit('new_cli', JSON.stringify(obj));
+        });
+
+        $('#sendbtn').on('click', function (){
+            var obj = {
+              token: $.cookie('token'),
+              username: $.cookie('username'),
+              value: $('#mymsg').val()
+            }
+            $('#mymsg').val('');
+            socket.emit('sendmsg', JSON.stringify(obj));
+        });
+
+        $('#setbtn').on('click', function (){
+          var new_dist= {value: $('#mydist').val()};
+          $('#mydist').val('');
+
+          $.ajax({url: "http://127.0.0.1:5000/user/distance",
+                  type: "POST",
+                  dataType: 'text',
+                  contentType: 'application/json',
+                  data: JSON.stringify(new_dist),
+                  success: function(response) {
+                      alert(response);
+
+                  },
+                  failure: function(error) {
+                      alert("ERRO");
+                  }
+          })
+        });
+
+        $('#chatbtn').on('click', function(){
+          $('#messageBox').fadeToggle(300);
+        });
+
+        $('#userbtn').on('click', function(){
+          $('#otherUsers').fadeToggle(300);
+        });
+
+        $('#distbtn').on('click', function(){
+          $('#distance').fadeToggle(300);
+        });
+
+        $('#outbtn').on('click', function(){
+          $.ajax({url: "http://127.0.0.1:5000/user/logout",
+                  type: "GET",
+                  dataType: "text",
+                  success: function(response) {
+                    console.log(response);
+                    $(location).attr('href','http://127.0.0.1:5000');
+                  },
+                  failure: function(error) {
+                    console.log(error);
+                  }
+          })
+        });
+        /*ENVIAR LOCALIZAÇão*/
+        function send_pos(position) {
+          var loc ={long: position.coords.longitude,lat: position.coords.latitude, sender:$.cookie('username')}
+
+          $.ajax({url: "http://127.0.0.1:5000/user/location",
+            type: "POST",
+            dataType: 'json',
+            contentType: 'application/json',
+            data: JSON.stringify(loc),
+            success: function(response) {
+              near = Object.keys(response);
+              console.log(near);
+              $('#users').empty();
+              for(i=0; i<near.length; i++){
+                $('#users').append('<p class="alert alert-info">'+near[i]+'</p>')
+              }
+            },
+            failure: function(error) {
+              console.log(error);
+            }
+          })
+        }
+
+        function send_loc(){
+          navigator.geolocation.getCurrentPosition(send_pos);
+        }
+
+        var location_timer = setInterval(send_loc ,10000);
+      });
+    </script>
+  </body>
+</html>
