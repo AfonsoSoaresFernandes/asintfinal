@@ -4,6 +4,9 @@ import requests
 import json
 from users import user1, authok_rest, authok_sio
 from flask_socketio import SocketIO, send, emit
+import eventlet
+
+eventlet.monkey_patch()
 
 app = Flask(__name__)
 CORS(app)
