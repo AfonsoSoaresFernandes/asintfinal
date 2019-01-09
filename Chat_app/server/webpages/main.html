@@ -54,7 +54,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
     <script>
       $(document).ready(function(){
-        var socket = io.connect('http://146.148.3.39:5001');
+        var socket = io.connect('https://146.148.3.39:5001');
 
         send_loc();
 
@@ -83,7 +83,7 @@
           var new_dist= {value: $('#mydist').val()};
           $('#mydist').val('');
 
-          $.ajax({url: "http://146.148.3.39:5000/user/distance",
+          $.ajax({url: "https://146.148.3.39:5000/user/distance",
                   type: "POST",
                   dataType: 'text',
                   contentType: 'application/json',
@@ -111,12 +111,12 @@
         });
 
         $('#outbtn').on('click', function(){
-          $.ajax({url: "http://146.148.3.39:5000/user/logout",
+          $.ajax({url: "https://146.148.3.39:5000/user/logout",
                   type: "GET",
                   dataType: "text",
                   success: function(response) {
                     console.log(response);
-                    $(location).attr('href','http://146.148.3.39:5000');
+                    $(location).attr('href','https://146.148.3.39:5000');
                   },
                   failure: function(error) {
                     console.log(error);
@@ -127,7 +127,7 @@
         function send_pos(position) {
           var loc ={long: position.coords.longitude,lat: position.coords.latitude, sender:$.cookie('username')}
 
-          $.ajax({url: "http://146.148.3.39:5000/user/location",
+          $.ajax({url: "https://146.148.3.39:5000/user/location",
             type: "POST",
             dataType: 'json',
             contentType: 'application/json',

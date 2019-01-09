@@ -1,4 +1,4 @@
-import requests
+10.132.0.2import requests
 
 class user1:
     numberOfUsers = 0
@@ -73,7 +73,7 @@ def authok_sio(data):
     else:
         response = requests.get('http://10.132.0.2:5000/user/exists',json={"token":data['token']})
         result = response.json()
-        if result == "not":
+        if result['id'] == "not":
             return "not"
         else:
             return "ok"
