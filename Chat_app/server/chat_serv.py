@@ -15,7 +15,7 @@ clients = {}
 def new_client(_data):
     data = json.loads(_data)
     auth = authok_sio(data)
-    clients.update({data['token']:request.sid})
+    clients[data['token']]=request.sid
     return "ok"
 
 @socketio.on('disconnect')
