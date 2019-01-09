@@ -341,4 +341,4 @@ def checkBuilding():
         return jsonify(fail)
 
 if __name__ == '__main__':
-    app.run(host='146.148.3.39', port=5000)
+    app.run(host='10.132.0.2', port=5000)

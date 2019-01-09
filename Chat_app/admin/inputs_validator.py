@@ -61,7 +61,7 @@ class InputsValidator:
                 building_info['token'] = token
 
 
-                url = "http://146.148.3.39:5000/api/admin"
+                url = "http://10.132.0.2:5000/api/admin"
                 response = requests.post(url + "/building", json = building_info)
                 print(response.json())
 
@@ -81,7 +81,7 @@ class InputsValidator:
                 'spaceId': space_id
             }
 
-            url = "http://146.148.3.39:5000/api/admin"
+            url = "http://10.132.0.2:5000/api/admin"
             response = requests.delete(url + "/building", json = building_info)
             print(response.json())
 

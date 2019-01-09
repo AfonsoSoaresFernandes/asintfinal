@@ -17,7 +17,7 @@ class LoginUI:
                 'password': password
             }
 
-            url = "http://146.148.3.39:5000/api/admin"
+            url = "http://10.132.0.2:5000/api/admin"
 
             response = requests.get(url + "/login", json = login_info)
 

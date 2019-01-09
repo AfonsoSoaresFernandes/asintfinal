@@ -5,7 +5,7 @@ class BotMSG:
     def __init__(self, token):
         self.time=time.time()
         self.token = token
-        socketIO = SocketIO('146.148.3.39', 5001)
+        socketIO = SocketIO('10.132.0.2', 5001)
         msg = input('Insira a mensagem a difundir pelo bot:\n> ')
         while True:
             time.sleep(5)

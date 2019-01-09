@@ -20,7 +20,7 @@ class CommandUI:
             if cmd == '1':
                 validor.checkBuilding(token)
             elif cmd == '2':
-                response = requests.get("http://146.148.3.39:5000/api/admin/getall", json = {'token': token})
+                response = requests.get("http://10.132.0.2:5000/api/admin/getall", json = {'token': token})
                 result = response.json()
                 key_list = list(result.keys())
                 pprint(key_list)
@@ -33,19 +33,19 @@ class CommandUI:
                 except ValueError:
                     print("NAN")
                     continue
-                response = requests.get("http://146.148.3.39:5000/api/admin/inbuilding", json = {'token': token, 'id':bid})
+                response = requests.get("http://10.132.0.2:5000/api/admin/inbuilding", json = {'token': token, 'id':bid})
                 result = response.json()
                 key_list = list(result.keys())
                 pprint(key_list)
                 print("")
             elif cmd == '4':
 
-                response = requests.get("http://146.148.3.39:5000/api/admin/logs", json = {'token': token})
+                response = requests.get("http://10.132.0.2:5000/api/admin/logs", json = {'token': token})
                 pprint(response.json())
                 print("")
 
             elif cmd.lower() == 'exit' or cmd.lower() == 'q':
-                response = requests.get("http://146.148.3.39:5000/api/admin/logout", json = {'token': token})
+                response = requests.get("http://10.132.0.2:5000/api/admin/logout", json = {'token': token})
                 exited = True
 
             else:
