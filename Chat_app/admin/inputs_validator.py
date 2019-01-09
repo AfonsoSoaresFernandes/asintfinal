@@ -1,23 +1,23 @@
-import requests 
+import requests
 import json
 
 class InputsValidator:
     def __init__(self):
         pass
-    
-    def checkBuilding(self, token): 
+
+    def checkBuilding(self, token):
         print("\n-'1' to add a building")
         print("-'2' to delete a building")
         print("-'q' to abort\n")
         cmd = input("> ")
 
-        if cmd == '1':  
+        if cmd == '1':
             input_holder = input("Type (campus, building): ")
 
             building_type = input_holder.upper()
 
-            if building_type == 'CAMPUS' or building_type == 'BUILDING': 
-                
+            if building_type == 'CAMPUS' or building_type == 'BUILDING':
+
                 building_name = input("Name: ")
                 try:
                     input_holder = input("Building ID: ")
@@ -43,7 +43,7 @@ class InputsValidator:
                     except ValueError:
                         print("Latitudes and longitudes must be floats!\n")
                         return
-                
+
                 building_info = {
                     'type': building_type,
                     'id': building_id,
@@ -61,15 +61,15 @@ class InputsValidator:
                 building_info['token'] = token
 
 
-                url = "http://127.0.0.1:5000/api/admin"
+                url = "http://146.148.3.39:5000/api/admin"
                 response = requests.post(url + "/building", json = building_info)
                 print(response.json())
-            
-            else: 
+
+            else:
                 print('Wrong building type!\n')
-        
+
         elif cmd == '2':
-            
+
             try:
                 input_holder = input("SpaceID to be deleted: ")
                 space_id = int(input_holder)
@@ -80,14 +80,14 @@ class InputsValidator:
             building_info = {
                 'spaceId': space_id
             }
-            
-            url = "http://127.0.0.1:5000/api/admin"
+
+            url = "http://146.148.3.39:5000/api/admin"
             response = requests.delete(url + "/building", json = building_info)
             print(response.json())
 
         elif cmd == 'q':
             pass
-        
+
         else:
             print('Invalid command!')
 

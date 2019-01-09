@@ -5,7 +5,7 @@ import json
 class LoginUI:
     def __init__(self):
         pass
-    
+
     def loop(self):
         logged = False
         while not logged:
@@ -17,14 +17,14 @@ class LoginUI:
                 'password': password
             }
 
-            url = "http://127.0.0.1:5000/api/admin"
+            url = "http://146.148.3.39:5000/api/admin"
 
             response = requests.get(url + "/login", json = login_info)
 
             response_json = response.json()
 
             try:
-                token = response_json['token'] 
+                token = response_json['token']
                 logged = True
                 print('Login successfull!\n')
 
@@ -32,4 +32,3 @@ class LoginUI:
                 print('Error in login!\n')
 
         return token
-        

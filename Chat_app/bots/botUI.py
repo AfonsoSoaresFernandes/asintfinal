@@ -7,7 +7,7 @@ class BotUI:
 
     def loop(self):
         exited = False
-        url = "http://127.0.0.1:5000/api/bot"
+        url = "http://146.148.3.39:5000/api/bot"
 
         while not exited:
             print("Valid commands:")
