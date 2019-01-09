@@ -59,4 +59,4 @@ def handle_bot(data):
     return "ok"
 
 if __name__ == '__main__':
-    socketio.run(app, debug=True, host='10.132.0.2', port=5001, ssl_context=('cert.pem', 'key.pem'))
+    socketio.run(app, debug=True, host='10.132.0.2', port=5001, certfile='cert.pem', keyfile='key.pem')
