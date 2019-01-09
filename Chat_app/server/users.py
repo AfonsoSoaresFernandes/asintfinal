@@ -71,7 +71,7 @@ def authok_sio(data):
     if not 'token' in data:
         return "not"
     else:
-        response = requests.get('http://127.0.0.1:5000/user/exists',json={"token":data['token']})
+        response = requests.get('http://146.148.3.39:5000/user/exists',json={"token":data['token']})
         result = response.json()
         if result == "not":
             return "not"

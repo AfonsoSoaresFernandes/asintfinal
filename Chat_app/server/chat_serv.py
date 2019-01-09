@@ -24,7 +24,7 @@ def user_disconnect():
     for i,j in clients.items():
         if j==request.sid:
             del clients[i]
-            response = requests.get('http://127.0.0.1:5000/user/disconnect',json={"token":i})
+            response = requests.get('http://146.148.3.39:5000/user/disconnect',json={"token":i})
             break
     return "ok"
 #WEB SocketIO
@@ -33,7 +33,7 @@ def handle_json(_data):
     data = json.loads(_data)
     auth = authok_sio(data)
     if auth == "ok":
-        response = requests.get('http://127.0.0.1:5000/user/getall',json={"token":data['token'],"sender":data['username'],"msg":data['value']})
+        response = requests.get('http://146.148.3.39:5000/user/getall',json={"token":data['token'],"sender":data['username'],"msg":data['value']})
         result = response.json()
         key_list = list(result.keys())
 
@@ -46,7 +46,7 @@ def handle_json(_data):
 
 @socketio.on('bot_alert')
 def handle_bot(data):
-    response = requests.get('http://127.0.0.1:5000/bot/alert',json={"building":data['building']})
+    response = requests.get('http://146.148.3.39:5000/bot/alert',json={"building":data['building']})
     result = response.json()
     key_list = list(result.keys())
     data['value'] = "From Bot: " + data['value']
@@ -56,4 +56,4 @@ def handle_bot(data):
     return "ok"
 
 if __name__ == '__main__':
-    socketio.run(app, debug=True, host='127.0.0.1', port=5001)
+    socketio.run(app, debug=True, host='146.148.3.39', port=5001)

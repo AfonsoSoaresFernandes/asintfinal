@@ -23,7 +23,7 @@ db2 = client_db['asint']
 collection = db2['users']
 buildings = db2['campus']
 #autenticação
-config = fenixedu.FenixEduConfiguration('1414440104755260', 'http://127.0.0.1:5000/user/logged', '/q2j/1VRazbkEeK3JnqgOanxPHfC6PKybkaTIoLmeZqQeGeNrfE/KgmnbnTTBYd1nnRsS5WqOhluCuXqxkH4NQ==', 'https://fenix.tecnico.ulisboa.pt/')
+config = fenixedu.FenixEduConfiguration('1414440104755260', 'http://146.148.3.39:5000/user/logged', '/q2j/1VRazbkEeK3JnqgOanxPHfC6PKybkaTIoLmeZqQeGeNrfE/KgmnbnTTBYd1nnRsS5WqOhluCuXqxkH4NQ==', 'https://fenix.tecnico.ulisboa.pt/')
 client_edu = fenixedu.FenixEduClient(config)
 url = client_edu.get_authentication_url()
 
@@ -341,4 +341,4 @@ def checkBuilding():
         return jsonify(fail)
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=5000)
+    app.run(host='146.148.3.39', port=5000)
