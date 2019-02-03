@@ -1,4 +1,4 @@
-runtime: python3
+runtime: python37
 entrypoint: ~/asintfinal/Chat_app/server/server.py
 
 runtime_config:
