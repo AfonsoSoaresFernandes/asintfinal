@@ -1,4 +1,4 @@
-runtime: python
+runtime: python3
 entrypoint: ~/asintfinal/Chat_app/server/server.py
 
 runtime_config:
