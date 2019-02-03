@@ -342,4 +342,4 @@ def checkBuilding():
         return jsonify(fail)
 
 if __name__ == '__main__':
-    app.run(host='10.132.0.2', port=5000, ssl_context=('cert.pem', 'key.pem'))
+    app.run(port=5000)
